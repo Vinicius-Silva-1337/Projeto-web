@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Login</title>
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+>
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+>
+
+<style>
+
+body{
+
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6610f2
+    );
+
+    font-family: Arial, sans-serif;
+
+}
+
+.login-card{
+
+    width: 100%;
+    max-width: 400px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+}
+
+.login-header{
+
+    background: #212529;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+
+}
+
+.login-header i{
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+
+}
+
+.login-body{
+
+    padding: 30px;
+
+    background: white;
+
+}
+
+.form-control{
+
+    height: 50px;
+
+    border-radius: 10px;
+
+}
+
+.btn-login{
+
+    height: 50px;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+.footer-text{
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card shadow-lg login-card">
+
+<!-- TOPO -->
+<div class="login-header">
+
+<i class="bi bi-key-fill"></i>
+
+<h2>
+Sistema de Chaves
+</h2>
+
+<p class="mb-0">
+Faça login para continuar
+</p>
+
+</div>
+
+
+<!-- FORM -->
+<div class="login-body">
+
+<div class="mb-3">
+
+<label class="form-label">
+Email
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+<i class="bi bi-envelope-fill"></i>
+</span>
+
+<input
+type="email"
+id="email"
+class="form-control"
+placeholder="Digite seu email"
+>
+
+</div>
+
+</div>
+
+
+<div class="mb-4">
+
+<label class="form-label">
+Senha
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+<i class="bi bi-lock-fill"></i>
+</span>
+
+<input
+type="password"
+id="senha"
+class="form-control"
+placeholder="Digite sua senha"
+>
+
+</div>
+
+</div>
+
+
+<button
+class="btn btn-primary w-100 btn-login"
+onclick="login()"
+>
+
+<i class="bi bi-box-arrow-in-right"></i>
+
+Entrar
+
+</button>
+
+<div class="footer-text">
+
+🔑 Sistema de Empréstimo de Chaves
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+async function login(){
+
+    const email =
+        document.getElementById("email").value;
+
+    const senha =
+        document.getElementById("senha").value;
+
+    try{
+
+        const resposta = await fetch(
+            "http://localhost:3000/login",
+            {
+                method: "POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify({
+                    email,
+                    senha
+                })
+
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if(dados.success === true){
+
+            // SALVA LOGIN
+            localStorage.setItem(
+                "logado",
+                "true"
+            );
+
+            alert(
+                "Login realizado com sucesso!"
+            );
+
+            window.location.href =
+                "dashboard.html";
+
+        }else{
+
+            alert(
+                dados.message ||
+                "Login inválido"
+            );
+
+        }
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Erro ao conectar API");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
