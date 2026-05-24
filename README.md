@@ -1,8 +1,9 @@
 Coisas que a prof requisitou:
-- Precisa Usar EJS
+- Precisa Usar EJS ✔️
 - Precisa de um login funcional
 - BootStrap
-- Express
+- Express ✔️
 - API REST
 - Potsman
 - MySql
+- npm ✔️
