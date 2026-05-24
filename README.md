@@ -7,3 +7,5 @@ Coisas que a prof requisitou:
 - Potsman
 - MySql✅
 - npm ✔️
+
+Por enquanto Assasinar o nicolas
