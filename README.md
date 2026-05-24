@@ -5,5 +5,5 @@ Coisas que a prof requisitou:
 - Express ✔️
 - API REST
 - Potsman
-- MySql✅
+- MySql
 - npm ✔️
