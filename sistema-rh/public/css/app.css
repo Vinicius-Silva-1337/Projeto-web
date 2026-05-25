@@ -1,0 +1,55 @@
+body {
+  background: #f5f7fb;
+  color: #172033;
+}
+
+.login-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(8, 18, 38, 0.58), rgba(8, 18, 38, 0.48)),
+    url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80') center / cover;
+}
+
+.login-panel {
+  width: min(100%, 430px);
+  background: #fff;
+  border: 1px solid #e3e8f1;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.surface,
+.metric {
+  background: #fff;
+  border: 1px solid #e3e8f1;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.metric span {
+  display: block;
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.metric strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+.actions-cell form {
+  display: inline;
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}

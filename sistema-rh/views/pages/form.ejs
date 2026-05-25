@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+<div class="d-flex align-items-center justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1"><%= title %></h1>
+    <p class="text-secondary mb-0"><%= resource.title %></p>
+  </div>
+  <a class="btn btn-outline-secondary" href="/<%= resourceName %>">Voltar</a>
+</div>
+
+<div class="surface">
+  <form method="post" action="<%= action %>" class="row g-3">
+    <% resource.fields.forEach((field) => { %>
+      <% if (field.createOnly && row[resource.pk]) { return; } %>
+      <div class="<%= field.type === 'textarea' ? 'col-12' : 'col-md-6 col-xl-4' %>">
+        <% if (field.type === 'checkbox') { %>
+          <div class="form-check mt-4">
+            <input class="form-check-input" id="<%= field.name %>" name="<%= field.name %>" type="checkbox" <%= row[field.name] || row[field.name] === undefined ? 'checked' : '' %>>
+            <label class="form-check-label" for="<%= field.name %>"><%= field.label %></label>
+          </div>
+        <% } else if (field.type === 'textarea') { %>
+          <label class="form-label" for="<%= field.name %>"><%= field.label %></label>
+          <textarea class="form-control" id="<%= field.name %>" name="<%= field.name %>" rows="3" <%= field.required ? 'required' : '' %>><%= row[field.name] || '' %></textarea>
+        <% } else if (field.type === 'select-static') { %>
+          <label class="form-label" for="<%= field.name %>"><%= field.label %></label>
+          <select class="form-select" id="<%= field.name %>" name="<%= field.name %>" <%= field.required ? 'required' : '' %>>
+            <% field.options.forEach((option) => { %>
+              <option value="<%= option %>" <%= (row[field.name] || field.options[0]) === option ? 'selected' : '' %>><%= option %></option>
+            <% }) %>
+          </select>
+        <% } else if (field.type === 'select') { %>
+          <label class="form-label" for="<%= field.name %>"><%= field.label %></label>
+          <select class="form-select" id="<%= field.name %>" name="<%= field.name %>" <%= field.required ? 'required' : '' %>>
+            <option value="">Selecione</option>
+            <% (selects[field.name] || []).forEach((option) => { %>
+              <option value="<%= option[field.value] %>" <%= String(row[field.name] || '') === String(option[field.value]) ? 'selected' : '' %>><%= option[field.text] %></option>
+            <% }) %>
+          </select>
+        <% } else { %>
+          <label class="form-label" for="<%= field.name %>"><%= field.label %></label>
+          <input class="form-control" id="<%= field.name %>" name="<%= field.name %>" type="<%= field.type %>" step="<%= field.step || '' %>" value="<%= row[field.name] || '' %>" <%= field.required ? 'required' : '' %>>
+        <% } %>
+      </div>
+    <% }) %>
+    <% if (resourceName === 'usuarios' && row[resource.pk]) { %>
+      <div class="col-md-6 col-xl-4">
+        <label class="form-label" for="senha">Nova senha</label>
+        <input class="form-control" id="senha" name="senha" type="password">
+      </div>
+    <% } %>
+    <div class="col-12 d-flex gap-2 pt-2">
+      <button class="btn btn-primary" type="submit">Salvar</button>
+      <a class="btn btn-outline-secondary" href="/<%= resourceName %>">Cancelar</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/footer') %>

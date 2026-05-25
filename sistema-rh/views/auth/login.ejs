@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+<section class="login-screen">
+  <div class="login-panel shadow-sm">
+    <div class="mb-4">
+      <p class="text-uppercase small text-secondary mb-1">Sistema RH</p>
+      <h1 class="h3 mb-1">Acesso administrativo</h1>
+      <p class="text-secondary mb-0">Entre para gerenciar funcionarios, folha, ferias e ponto.</p>
+    </div>
+
+    <form method="post" action="/login" class="vstack gap-3">
+      <div>
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" id="email" name="email" type="email" value="admin@sistema-rh.local" required autofocus>
+      </div>
+      <div>
+        <label class="form-label" for="senha">Senha</label>
+        <input class="form-control" id="senha" name="senha" type="password" value="admin123" required>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Entrar</button>
+    </form>
+  </div>
+</section>
+<%- include('../partials/footer') %>

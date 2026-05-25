@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1"><%= resource.title %></h1>
+    <p class="text-secondary mb-0">Listagem, cadastro, edicao e exclusao.</p>
+  </div>
+  <a class="btn btn-primary" href="/<%= resourceName %>/novo">Novo registro</a>
+</div>
+
+<div class="surface">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <% resource.fields.slice(0, 6).forEach((field) => { %>
+            <th><%= field.label %></th>
+          <% }) %>
+          <th class="text-end">Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% rows.forEach((row) => { %>
+          <tr>
+            <td class="text-secondary"><%= row[resource.pk] %></td>
+            <% resource.fields.slice(0, 6).forEach((field) => { %>
+              <td>
+                <% if (field.type === 'select') { %>
+                  <%= row[`${field.name.replace('id_', '')}_nome`] || row[field.name] || '-' %>
+                <% } else if (field.type === 'checkbox') { %>
+                  <span class="badge <%= row[field.name] ? 'text-bg-success' : 'text-bg-secondary' %>"><%= row[field.name] ? 'Sim' : 'Nao' %></span>
+                <% } else { %>
+                  <%= row[field.name] === null || row[field.name] === undefined || row[field.name] === '' ? '-' : row[field.name] %>
+                <% } %>
+              </td>
+            <% }) %>
+            <td class="text-end actions-cell">
+              <a class="btn btn-outline-primary btn-sm" href="/<%= resourceName %>/<%= row[resource.pk] %>/editar">Editar</a>
+              <form method="post" action="/<%= resourceName %>/<%= row[resource.pk] %>/excluir" onsubmit="return confirm('Excluir este registro?')">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+        <% if (!rows.length) { %>
+          <tr><td colspan="<%= resource.fields.slice(0, 6).length + 2 %>" class="text-center text-secondary py-4">Nenhum registro encontrado.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

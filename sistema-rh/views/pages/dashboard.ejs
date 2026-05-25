@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Dashboard</h1>
+    <p class="text-secondary mb-0">Visao geral do sistema de recursos humanos.</p>
+  </div>
+  <a class="btn btn-primary" href="/funcionarios/novo">Novo funcionario</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="metric"><span>Funcionarios ativos</span><strong><%= stats.funcionarios %></strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Departamentos</span><strong><%= stats.departamentos %></strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Folhas pendentes</span><strong><%= stats.folhasPendentes %></strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Ferias abertas</span><strong><%= stats.feriasAgendadas %></strong></div></div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="surface">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5 mb-0">Ultimos funcionarios</h2>
+        <a class="btn btn-outline-secondary btn-sm" href="/funcionarios">Ver todos</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead><tr><th>Nome</th><th>Cargo</th><th>Situacao</th></tr></thead>
+          <tbody>
+            <% stats.ultimosFuncionarios.forEach((func) => { %>
+              <tr>
+                <td><%= func.nome_completo %></td>
+                <td><%= func.nome_cargo %></td>
+                <td><span class="badge text-bg-light border"><%= func.situacao %></span></td>
+              </tr>
+            <% }) %>
+            <% if (!stats.ultimosFuncionarios.length) { %>
+              <tr><td colspan="3" class="text-secondary">Nenhum funcionario cadastrado.</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="surface">
+      <h2 class="h5 mb-3">Modulos</h2>
+      <div class="list-group">
+        <% Object.keys(resources).forEach((key) => { %>
+          <a class="list-group-item list-group-item-action d-flex justify-content-between" href="/<%= key %>">
+            <span><%= resources[key].title %></span>
+            <span class="text-secondary">Abrir</span>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>
